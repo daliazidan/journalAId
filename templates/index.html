@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="MindWell - Your personal mental health companion">
+    <meta name="author" content="">
+
+    <title>JournalAId - Your Mental Health Companion</title>
+
+    <!-- Custom fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --calm-blue: #6366f1;
+            --soft-green: #10b981;
+            --warm-orange: #f59e0b;
+            --gentle-pink: #ec4899;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            padding: 2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .brand {
+            padding: 0 2rem 2rem;
+            text-align: center;
+        }
+
+        .brand h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #5ba3f5 0%, #3d7bd8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .brand p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .nav-section {
+            margin: 2rem 0;
+        }
+
+        .nav-header {
+            padding: 0 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            margin: 0.5rem 1rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            color: var(--calm-blue);
+            transform: translateX(4px);
+        }
+
+        .nav-link i {
+            width: 20px;
+            margin-right: 1rem;
+            font-size: 1.125rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .user-greeting {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        /* Wellness Cards */
+        .wellness-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .wellness-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .wellness-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .mood-icon { background: var(--primary-gradient); }
+        .meditation-icon { background: var(--success-gradient); }
+        .journal-icon { background: var(--secondary-gradient); }
+        .goals-icon { background: var(--warning-gradient); }
+
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .card-content {
+            margin: 1rem 0;
+        }
+
+        .metric {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .action-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Recent Activities */
+        .activities-section {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.75rem;
+            color: var(--calm-blue);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-time {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Motivational Quote */
+        .quote-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+
+        .quote-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-text {
+            font-size: 1.25rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .quote-author {
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 1rem 0;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .wellness-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        .breathing-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--success-gradient);
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="brand">
+                <h1>JournalAId</h1>
+                <p>Your mental health companion</p>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-header">Dashboard</div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-heart"></i>
+                        <span>Wellness Overview</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-header">Self-Care</div>
+                <div class="nav-item">
+                    <a href="/meditation" class="nav-link">
+                        <i class="fas fa-leaf"></i>
+                        <span>Meditation</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-pen"></i>
+                        <span>Journal</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-book"></i>
+                        <span>Flipbook Generator</span>
+                    </a>
+                </div>
+            </div>
+
+
+
+
+
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <div>
+                    <h2>Good Morning, Dalia</h2>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem;">How are you feeling today?</p>
+                </div>
+                <div class="user-greeting">
+                    <div class="user-avatar">D</div>
+                </div>
+            </div>
+
+            <!-- Wellness Cards -->
+            <div class="wellness-grid">
+                <div class="wellness-card">
+                    <div class="card-header">
+                        <div class="card-icon mood-icon">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Today's Mood</div>
+                            <div class="card-subtitle">How you're feeling</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="metric">Pretty Good</div>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">Keep tracking to identify patterns</p>
+                        <a href="#" class="action-btn">Log Mood</a>
+                    </div>
+                </div>
+
+                <div class="wellness-card">
+                    <div class="card-header">
+                        <div class="card-icon meditation-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Mindfulness</div>
+                            <div class="card-subtitle">Minutes this week</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="metric">45 min</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 64%; background: var(--success-gradient);"></div>
+                        </div>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">64% of weekly goal</p>
+                        <a href="#" class="action-btn">Start Session</a>
+                    </div>
+                </div>
+
+                <div class="wellness-card">
+                    <div class="card-header">
+                        <div class="card-icon journal-icon">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Journal Streak</div>
+                            <div class="card-subtitle">Consecutive days</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="metric">7 days</div>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">Amazing consistency!</p>
+                        <a href="#" class="action-btn">Write Entry</a>
+                    </div>
+                </div>
+
+                <div class="wellness-card">
+                    <div class="card-header">
+                        <div class="card-icon goals-icon">
+                            <i class="fas fa-target"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Weekly Goals</div>
+                            <div class="card-subtitle">Progress overview</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="metric">3 of 5</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%; background: var(--warning-gradient);"></div>
+                        </div>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">You're doing great!</p>
+                        <a href="#" class="action-btn">View Goals</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
+            <div class="activities-section">
+                <h3 class="section-title">
+                    <i class="fas fa-clock"></i>
+                    Recent Activities
+                </h3>
+
+                <div class="activity-item">
+                    <div class="activity-icon" style="background: var(--success-gradient);">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Completed 10-minute breathing exercise</div>
+                        <div class="activity-time">2 hours ago</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon" style="background: var(--secondary-gradient);">
+                        <i class="fas fa-pen"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Added journal entry about gratitude</div>
+                        <div class="activity-time">Yesterday</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon" style="background: var(--primary-gradient);">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Logged mood as "Content"</div>
+                        <div class="activity-time">2 days ago</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon" style="background: var(--warning-gradient);">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Completed weekly self-care goal</div>
+                        <div class="activity-time">3 days ago</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions & Breathing Exercise -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+                <div class="quote-section">
+                    <div class="quote-content">
+                        <div class="quote-text">"You are braver than you believe, stronger than you seem, and smarter than you think."</div>
+                        <div class="quote-author">— A.A. Milne</div>
+                    </div>
+                </div>
+
+                <div class="wellness-card" style="text-align: center;">
+                    <h4 style="margin-bottom: 1rem; color: var(--text-primary);">Quick Breathing</h4>
+                    <div class="breathing-circle">
+                        <i class="fas fa-lungs"></i>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 1rem;">Follow the circle</p>
+                    <button class="action-btn" style="width: 100%;">Start 4-7-8 Breathing</button>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

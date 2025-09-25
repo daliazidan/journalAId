@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="MindWell - Journal Entry">
+    <meta name="author" content="">
+
+    <title>JournalAId - Create Journal Entry</title>
+
+    <!-- Custom fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --calm-blue: #6366f1;
+            --soft-green: #10b981;
+            --warm-orange: #f59e0b;
+            --gentle-pink: #ec4899;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            padding: 2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .brand {
+            padding: 0 2rem 2rem;
+            text-align: center;
+        }
+
+        .brand h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #5ba3f5 0%, #3d7bd8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .brand p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .nav-section {
+            margin: 2rem 0;
+        }
+
+        .nav-header {
+            padding: 0 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            margin: 0.5rem 1rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            color: var(--calm-blue);
+            transform: translateX(4px);
+        }
+
+        .nav-link i {
+            width: 20px;
+            margin-right: 1rem;
+            font-size: 1.125rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--calm-blue);
+        }
+
+        .breadcrumb .separator {
+            margin: 0 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        .journal-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .form-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            resize: vertical;
+            transition: all 0.3s ease;
+            background: var(--surface);
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--calm-blue);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .char-counter {
+            text-align: right;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .mood-selector {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
+        }
+
+        .mood-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--surface);
+            font-size: 0.875rem;
+        }
+
+        .mood-option:hover {
+            border-color: var(--calm-blue);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .mood-option.selected {
+            border-color: var(--calm-blue);
+            background: var(--calm-blue);
+            color: white;
+        }
+
+        .mood-emoji {
+            font-size: 1.25rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--calm-blue);
+            color: var(--calm-blue);
+        }
+
+        .suggestions-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .suggestions-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            color: var(--calm-blue);
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+        }
+
+        .suggestion-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .suggestion-icon {
+            color: var(--calm-blue);
+            margin-top: 0.125rem;
+        }
+
+        .privacy-notice {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .privacy-notice-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--soft-green);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .privacy-notice p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .writing-prompt {
+            background: rgba(236, 72, 153, 0.05);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .prompt-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--gentle-pink);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .prompt-text {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+
+        /* Analysis Results Styles */
+        .analysis-section {
+            margin-top: 2rem;
+        }
+
+        .success-message {
+            background: var(--success-gradient);
+            border-radius: 16px;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="success-grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23success-grain)"/></svg>');
+        }
+
+        .success-header {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-header i {
+            font-size: 2rem;
+        }
+
+        .success-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .success-message p {
+            position: relative;
+            z-index: 1;
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .ai-response-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .ai-header h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .ai-header i {
+            font-size: 1.25rem;
+        }
+
+        .ai-intro, .ai-summary {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        .ai-suggestions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .suggestion-item-ai {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            border: 1px solid rgba(102, 126, 234, 0.15);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .suggestion-item-ai:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .suggestion-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .suggestion-content {
+            flex: 1;
+        }
+
+        .suggestion-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .suggestion-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .analysis-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .feedback-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(52, 211, 153, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feedback-card h4 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--soft-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feedback-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .feedback-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--surface);
+        }
+
+        .feedback-option:hover {
+            border-color: var(--soft-green);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .feedback-option input[type="radio"] {
+            display: none;
+        }
+
+        .feedback-option input[type="radio"]:checked + .feedback-emoji + span,
+        .feedback-option:has(input[type="radio"]:checked) {
+            border-color: var(--soft-green);
+            background: var(--soft-green);
+            color: white;
+        }
+
+        .feedback-emoji {
+            font-size: 1.125rem;
+        }
+
+        .feedback-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            resize: vertical;
+            margin-bottom: 1rem;
+            background: var(--surface);
+        }
+
+        .feedback-textarea:focus {
+            outline: none;
+            border-color: var(--soft-green);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .loading-content {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 400px;
+            margin: 2rem;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--calm-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Submitted form styling */
+        .journal-card.submitted {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.03), rgba(52, 211, 153, 0.03));
+            border: 2px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .form-textarea:disabled {
+            background: #f8f9fa;
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        .mood-option.selected.disabled {
+            background: var(--soft-green) !important;
+            opacity: 0.7 !important;
+        }
+
+        .btn:disabled {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3)) !important;
+        }
+
+        /* Analysis section entrance animation */
+        .analysis-section {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 1rem 0;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .journal-card {
+                padding: 1.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .mood-selector {
+                justify-content: center;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="brand">
+                <h1>JournalAId</h1>
+                <p>Your mental health companion</p>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-header">Dashboard</div>
+                <div class="nav-item">
+                    <a href="/dashboard" class="nav-link">
+                        <i class="fas fa-heart"></i>
+                        <span>Wellness Overview</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-header">Self-Care</div>
+                <div class="nav-item">
+                    <a href="/meditation" class="nav-link">
+                        <i class="fas fa-leaf"></i>
+                        <span>Meditation</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="/journal" class="nav-link active">
+                        <i class="fas fa-pen"></i>
+                        <span>Journal</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="/flipbook" class="nav-link">
+                        <i class="fas fa-book"></i>
+                        <span>Flipbook Generator</span>
+                    </a>
+                </div>
+            </div>
+
+
+
+
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Breadcrumb -->
+                <nav class="breadcrumb">
+                    <a href="/dashboard">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <span class="separator">/</span>
+                    <span>Create Journal Entry</span>
+                </nav>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Create a Journal Entry</h1>
+            <p class="page-subtitle">Take a moment to reflect on your thoughts and feelings</p>
+        </div>
+
+        <!-- Privacy Notice -->
+        <div class="privacy-notice">
+            <div class="privacy-notice-title">
+                <i class="fas fa-shield-alt"></i>
+                Your Privacy is Protected
+            </div>
+            <p>Your journal entries are private and secure. We use this information only to provide personalized insights and suggestions to support your mental wellbeing.</p>
+        </div>
+
+        <!-- Writing Prompt -->
+        <div class="writing-prompt">
+            <div class="prompt-title">
+                <i class="fas fa-lightbulb"></i>
+                Today's Writing Prompt
+            </div>
+            <p class="prompt-text">"What is one thing that brought you peace or joy today, no matter how small?"</p>
+        </div>
+        <div class="journal-card">
+            <h4>Overall Analysis of User</h4>
+            <br/>
+                    <h4>{{summary}}</h4>
+                </div>
+        <!-- Journal Entry Form -->
+        <form action="/journal" method="POST" class="journal-card">
+            <div class="form-section">
+                <label for="entry" class="form-label">
+                    <i class="fas fa-pen" style="margin-right: 0.5rem; color: var(--gentle-pink);"></i>
+                    Your Journal Entry
+                </label>
+                <textarea
+                    name="entry"
+                    id="entry"
+                    class="form-textarea"
+                    placeholder="Write freely about your day, your feelings, or anything on your mind. There's no right or wrong way to journal - just let your thoughts flow..."
+                    required
+                ></textarea>
+                <div class="char-counter">
+                    <span id="char-count">0</span> characters
+                </div>
+            </div>
+
+            <div class="form-section">
+                <label class="form-label">
+                    <i class="fas fa-heart" style="margin-right: 0.5rem; color: var(--calm-blue);"></i>
+                    How are you feeling right now?
+                </label>
+                <div class="mood-selector">
+                    <div class="mood-option" data-mood="amazing">
+                        <span class="mood-emoji">😊</span>
+                        <span>Amazing</span>
+                    </div>
+                    <div class="mood-option" data-mood="good">
+                        <span class="mood-emoji">🙂</span>
+                        <span>Good</span>
+                    </div>
+                    <div class="mood-option" data-mood="okay">
+                        <span class="mood-emoji">😐</span>
+                        <span>Okay</span>
+                    </div>
+                    <div class="mood-option" data-mood="struggling">
+                        <span class="mood-emoji">😔</span>
+                        <span>Struggling</span>
+                    </div>
+                    <div class="mood-option" data-mood="difficult">
+                        <span class="mood-emoji">😢</span>
+                        <span>Very Difficult</span>
+                    </div>
+                </div>
+                <input type="hidden" name="mood" id="selected-mood" value="">
+            </div>
+
+            <div class="action-buttons">
+                <a href="/dashboard" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Cancel
+                </a>
+                <button type="submit" class="btn btn-primary" id="journal-submit">
+                    <i class="fas fa-save"></i>
+                    Save Entry & Get Insights
+                </button>
+            </div>
+        </form>
+         {% if text %}
+                <div style="border: 1px solid gray; font-size: 14px; border: 1px solid var(--border); background-color: white; padding: 20px 20px 20px 20px; border-radius: 20px; font-weight: 800px; margin-bottom: 20px;" >
+                    <h4 style="margin-bottom: 10px; ">{{text['response']}}</h4>
+                    <ul>
+                        {% for suggestion in text['suggestions'] %}
+                            <li>{{suggestion}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+        <form action="/journal" method="POST" class="journal-card">
+            <div class="form-section">
+                <label for="entry" class="form-label">
+                    <i class="fas fa-pen" style="margin-right: 0.5rem; color: var(--gentle-pink);"></i>
+                    Your Feedback
+                </label>
+                <textarea
+                    name="feedback"
+                    id="entry"
+                    class="form-textarea"
+                    placeholder="Write freely about your day, your feelings, or anything on your mind. There's no right or wrong way to journal - just let your thoughts flow..."
+                    required
+                ></textarea>
+                <div class="char-counter">
+                    <span id="char-count">0</span> characters
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="/dashboard" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Cancel
+                </a>
+                <button type="submit" class="btn btn-primary" id="journal-submit">
+                    <i class="fas fa-save"></i>
+                    Submit Feedback
+                </button>
+            </div>
+        </form>
+       {% endif %}
+        <!-- Writing Suggestions -->
+        <div class="suggestions-card">
+            <div class="suggestions-title">
+                <i class="fas fa-lightbulb"></i>
+                Writing Suggestions
+            </div>
+            <div class="suggestion-item">
+                <i class="fas fa-heart suggestion-icon"></i>
+                <div>
+                    <strong>Express gratitude:</strong> Write about three things you're grateful for today, no matter how small.
+                </div>
+            </div>
+            <div class="suggestion-item">
+                <i class="fas fa-brain suggestion-icon"></i>
+                <div>
+                    <strong>Process emotions:</strong> Describe how you're feeling and try to understand why you might feel this way.
+                </div>
+            </div>
+            <div class="suggestion-item">
+                <i class="fas fa-target suggestion-icon"></i>
+                <div>
+                    <strong>Set intentions:</strong> What do you hope to accomplish or feel tomorrow? What small step can you take?
+                </div>
+            </div>
+            <div class="suggestion-item">
+                <i class="fas fa-sun suggestion-icon"></i>
+                <div>
+                    <strong>Highlight positives:</strong> Even on difficult days, try to identify one moment of peace, beauty, or connection.
+                </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        // Character counter
+        const textarea = document.getElementById('entry');
+        const charCount = document.getElementById('char-count');
+
+        textarea.addEventListener('input', function() {
+            charCount.textContent = this.value.length;
+        });
+        document.getElementById('journal-submit').addEventListener('click', function() {
+
+        });
+
+        // Mood selector
+        const moodOptions = document.querySelectorAll('.mood-option');
+        const hiddenMoodInput = document.getElementById('selected-mood');
+
+        moodOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                moodOptions.forEach(opt => opt.classList.remove('selected'));
+
+                // Add selected class to clicked option
+                this.classList.add('selected');
+
+                // Set hidden input value
+                hiddenMoodInput.value = this.dataset.mood;
+            });
+        });
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const entry = document.getElementById('entry').value.trim();
+
+            if (entry.length < 10) {
+                e.preventDefault();
+                alert('Please write at least 10 characters in your journal entry.');
+                return;
+            }
+
+            // Optional: Warn if no mood selected
+            if (!hiddenMoodInput.value) {
+                const confirmSubmit = confirm('You haven\'t selected a mood. Would you like to continue anyway?');
+                if (!confirmSubmit) {
+                    e.preventDefault();
+                    return;
+                }
+            }
+        });
+
+        // Auto-save draft (optional enhancement)
+        let saveTimeout;
+        textarea.addEventListener('input', function() {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                // Save draft to localStorage
+                localStorage.setItem('journal-draft', this.value);
+            }, 1000);
+        });
+
+        // Load draft on page load
+        window.addEventListener('load', function() {
+            const draft = localStorage.getItem('journal-draft');
+            if (draft && !textarea.value) {
+                textarea.value = draft;
+                charCount.textContent = draft.length;
+            }
+        });
+
+        // Clear draft on successful submission
+        document.querySelector('form').addEventListener('submit', function() {
+            localStorage.removeItem('journal-draft');
+        });
+    </script>
+</body>
+</html>
